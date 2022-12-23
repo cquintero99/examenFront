@@ -9,10 +9,13 @@ if(user.length>=1){
 }
 function salirCuenta(){
     sessionStorage.setItem("username","")
+    sessionStorage.setItem("id","")
     
-    setTimeout(location.reload(),50)
+    setTimeout(recargar,50)
 }
-
+function recargar(){
+    location.reload()
+}
 function verData(){
     let username=sessionStorage.getItem('username')
     
@@ -46,6 +49,10 @@ function verData(){
     })
     
 }
+function cargarLista(){
+    $("#contenedor").load('lista.html')
+
+}
 function login(){
 
     let username=document.getElementById('username').value
@@ -57,25 +64,41 @@ function login(){
     fetch('http://localhost:8080/users/'+username+'/login/'+pass,)
     .then(response=>response.json())
     .then(data=>{
-        if(data=true){
-            $("#contenedor").load('lista.html')
+        if(data==true){
+            sessionStorage.setItem("username",username)
+            
             fetch('http://localhost:8080/users/'+username+'/usuario')
             .then(res=>res.json())
             .then(dataUser=>{
                 sessionStorage.setItem("id",dataUser.id)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Bienvenido',
+                    text: username,
+                    timer: 1000,
+                    footer: '<p class="fw-bolder" >King Shoes CO</p>'
+                  })
             })
+            setTimeout(cargarLista,1500)
             .catch(err=>{
                 alert("error buscar usuario")
             })
-            sessionStorage.setItem("username",username)
-        }else{
-            alert("incorrecto")
+            
+        }else if(data=="false"){
+            sessionStorage.setItem("username","")  
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Datos incorrectos LOL!',
+            timer:1000,
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
         }
         
 
     })
     .catch(err=>{
-        console.log(err)
+        console.log("error login")
     })
     
 }

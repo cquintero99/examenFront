@@ -24,18 +24,32 @@ function saveBills(){
     .then(response=>response.json())
     .then(newBills=>{
         console.log("NEW BILLS "+newBills)
-
-        location.reload()
+        Swal.fire({
+            icon: 'success',
+            title: 'Movimiento Guardado ',
+            text: username,
+            timer: 1000,
+            footer: '<p class="fw-bolder" >King Shoes CO</p>'
+          })
+          setTimeout(recargar,1000)
+        
         
 
     })
     .catch(err=>{
-        alert("error al guarda bills")
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Error guardar movimiento!',
+            timer:1000,
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
     })
     console.log(JSON.stringify(newBills))
 
 }
 function deleteBills(id){
+    
     let username=sessionStorage.getItem("username")
     
     fetch('http://localhost:8080/users/'+username+'/bills/'+id,{
@@ -46,9 +60,24 @@ function deleteBills(id){
     })
     .then(response=>response.json())
     .then(data=>{
-        alert("Elimino")
+        Swal.fire({
+            icon: 'success',
+            title: 'Movimiento Eliminado',
+            text: username,
+            timer: 1000,
+            footer: '<p class="fw-bolder" >King Shoes CO</p>'
+          })
+        
 
     })
-    .catch("No se puedo eliminar")
+    .catch(err=>{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se pudo eliminar movimiento!',
+            timer:1000,
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
+    })
 
 }
