@@ -75,7 +75,7 @@ function login(){
                     icon: 'success',
                     title: 'Bienvenido',
                     text: username,
-                    timer: 1000,
+                    timer: 1500,
                     footer: '<p class="fw-bolder" >King Shoes CO</p>'
                   })
             })
@@ -84,7 +84,7 @@ function login(){
                 alert("error buscar usuario")
             })
             
-        }else if(data=="false"){
+        }else if(data==false){
             sessionStorage.setItem("username","")  
         Swal.fire({
             icon: 'error',
@@ -98,7 +98,13 @@ function login(){
 
     })
     .catch(err=>{
-        console.log("error login")
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Datos incorrectos LOL!',
+            timer:1000,
+            footer: '<a href="">Why do I have this issue?</a>'
+        })
     })
     
 }

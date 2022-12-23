@@ -14,6 +14,7 @@ function saveBills(){
         date_bill:fecha
     }
     let username=sessionStorage.getItem("username")
+    
     fetch('http://localhost:8080/users/'+username+'/bills',{
         method:'POST',
         body:JSON.stringify(newBills),
@@ -45,7 +46,7 @@ function saveBills(){
             footer: '<a href="">Why do I have this issue?</a>'
         })
     })
-    console.log(JSON.stringify(newBills))
+ 
 
 }
 function deleteBills(id){
@@ -67,6 +68,8 @@ function deleteBills(id){
             timer: 1000,
             footer: '<p class="fw-bolder" >King Shoes CO</p>'
           })
+
+          setTimeout(recargar,1000)
         
 
     })
