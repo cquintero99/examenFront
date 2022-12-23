@@ -13,7 +13,25 @@ function saveBills(){
         observation,
         date_bill:fecha
     }
+    let username=sessionStorage.getItem("username")
+    fetch('http://localhost:8080/users/'+username+'/bills',{
+        method:'POST',
+        body:JSON.stringify(newBills),
+        headers:{
+            "Content-type":"application/json"
+        }
+    })
+    .then(response=>response.json())
+    .then(newBills=>{
+        console.log("NEW BILLS "+newBills)
 
+        location.reload()
+        
+
+    })
+    .catch(err=>{
+        alert("error al guarda bills")
+    })
     console.log(JSON.stringify(newBills))
 
 }
