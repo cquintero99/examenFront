@@ -3,7 +3,14 @@ let user=sessionStorage.getItem("username")
 if(user.length>=1){
     $("#contenedor").load('lista.html')
     verData()
+    document.getElementById('salir').innerHTML=`
+    <button class="btn btn-danger" type="submit" onclick="salirCuenta()">Cerrar Sesion</button>`
 
+}
+function salirCuenta(){
+    sessionStorage.setItem("username","")
+    
+    setTimeout(location.reload(),50)
 }
 
 function verData(){
@@ -13,6 +20,7 @@ function verData(){
     .then(response=>response.json())
     .then(data=>{
         let body=``
+        
         for(let i=0; i<data.length;i++){
             body+=
             `
@@ -50,6 +58,14 @@ function login(){
     .then(data=>{
         if(data=true){
             $("#contenedor").load('lista.html')
+            fetch('http://localhost:8080/users/'+username+'/usuario')
+            .then(res=>res.json())
+            .then(dataUser=>{
+                sessionStorage.setItem("id",dataUser.id)
+            })
+            .catch(err=>{
+                alert("error buscar usuario")
+            })
             sessionStorage.setItem("username",username)
         }else{
             alert("incorrecto")
