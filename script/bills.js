@@ -35,3 +35,20 @@ function saveBills(){
     console.log(JSON.stringify(newBills))
 
 }
+function deleteBills(id){
+    let username=sessionStorage.getItem("username")
+    
+    fetch('http://localhost:8080/users/'+username+'/bills/'+id,{
+        method:'DELETE',
+        headers:{
+            "Content-type":"application/json"
+        }
+    })
+    .then(response=>response.json())
+    .then(data=>{
+        alert("Elimino")
+
+    })
+    .catch("No se puedo eliminar")
+
+}

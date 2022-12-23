@@ -31,6 +31,7 @@ function verData(){
             <td>${data[i].value}</td>
             <td>${data[i].type}</td>
             <td>${data[i].observation}</td>
+            <td><button class="btn btn-danger" type="submit" onclick="deleteBills(${data[i].id})">Eliminar</button></td>
             </tr>
 
 
